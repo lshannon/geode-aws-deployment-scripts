@@ -20,9 +20,60 @@ The `geode-ubuntu-package` folder contains all the required binaries to run Geod
 
 ## Set Up
 
-In the `remote_management_scripts`, run the `setup.sh` script.
-
 ### Locally
+
+To run locally, execute the 'start_cluster.sh' script. This will start up one Locator and two Servers locally. This script will fail if JAVA_HOME is not set. This can be dealt with, in the Mac terminal by running a command like this:
+
+```shell
+
+➜  local_scripts git:(master) ✗ export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home
+
+```
+
+Upon successful start up of the cluster, the output will show something like this.
+
+```shell
+
+...
+
+(2) Executing - list members
+
+Member Count : 3
+Coordinator  : locator (MacBook-Pro-7(locator:54660:locator)<v0>:12714)
+
+ Name   | Id
+------- | ----------------------------------------------
+serverA | MacBook-Pro-7(serverA:54763)<v1>:8229
+locator | MacBook-Pro-7(locator:54660:locator)<v0>:12714
+serverB | MacBook-Pro-7(serverB:54801)<v2>:54795
+
+Local Cluster started
+
+```
+
+To connect to the Cluster, run the 'gfsh.sh' script.
+
+```shell
+
+➜  local_scripts git:(master) ✗ ./gfsh.sh 
+Gemfire Shell (gfsh) is command-line interface to launch, manage and monitor Gemfire processes
+Type connect to connect to the grid if its running
+    _________________________     __
+   / _____/ ______/ ______/ /____/ /
+  / /  __/ /___  /_____  / _____  / 
+ / /__/ / ____/  _____/ / /    / /  
+/______/_/      /______/_/    /_/    v8.2.1
+
+Monitor and Manage GemFire
+gfsh>connect
+Connecting to Locator at [host=localhost, port=10334] ..
+Connecting to Manager at [host=10.0.1.62, port=1099] ..
+Successfully connected to: [host=10.0.1.62, port=1099]
+
+gfsh>
+
+
+```
 
 ### Remote
 
