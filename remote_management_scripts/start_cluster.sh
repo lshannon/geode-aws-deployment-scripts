@@ -2,7 +2,8 @@
 ###############################################################################
 # Runs locally to start all the members in the Cluster
 ###############################################################################
-source ./environment.sh
+cd $( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+source set_env.sh
 now=$(date +"%T")
 echo "Start Time : $now"
 echo "Start the locators"
