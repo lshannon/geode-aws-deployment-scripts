@@ -77,6 +77,16 @@ gfsh>
 
 ### Remote
 
+Memory optimized EC2 instances with a 10GB network is recommended. For example, r4.large.
+
+Ensure the security protocols for the instances are as follows:
+
+```shell
+
+Protocol: TCP  Range: 1024-65535
+Protocol: TCP  Port: 22
+
+```
 
 
 ## Requirements
