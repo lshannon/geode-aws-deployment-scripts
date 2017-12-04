@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE cache PUBLIC "-//GemStone Systems, Inc.//GemFire Declarative Caching 7.0//EN" "http://www.gemstone.com/dtd/cache7_0.dtd">
+<cache >
+
+	<!-- Cache Server Configuration (port="0" - dynamically picks open port, 40404 is typically used)-->
+	<cache-server port="0"/>
+	
+	<disk-store name="ds1" compaction-threshold="40" auto-compact="false" allow-force-compaction="true" max-oplog-size="512" time-interval="15" write-buffer-size="65536">
+		<disk-dirs>
+			<disk-dir>./data</disk-dir>
+		</disk-dirs>
+	</disk-store>
+	
+	<pdx persistent="true">
+		<pdx-serializer>
+			<class-name>
+				com.gemstone.gemfire.pdx.ReflectionBasedAutoSerializer
+			</class-name>
+			<parameter name="classes">
+				<string>io.pivotal.fe.hellogbye.gemfire.model.*</string>
+			</parameter>
+		</pdx-serializer>
+	</pdx>
+	
+	<region name="segments">
+    		<region-attributes refid="PARTITION_PERSISTENT" disk-store-name="ds1" concurrency-level="2">
+       	</region-attributes>
+	</region>
+	
+	<function-service>
+       	<function>
+      		 <class-name>io.pivotal.fe.hellogbye.gemfire.loader.DataLoadFunction</class-name>
+      	 </function>
+    </function-service>
+    
+    <!-- Resource Manager - Used with _HEAP_LRU regions -->
+	<resource-manager critical-heap-percentage="80" eviction-heap-percentage="60"/>
+	
+</cache>

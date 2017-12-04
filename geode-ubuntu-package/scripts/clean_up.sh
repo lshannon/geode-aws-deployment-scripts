@@ -1,0 +1,20 @@
+#!/bin/bash
+###################################################################################
+# These scripts run on the remote Geode member machines (assumes a Ubuntu OS)
+# This script deletes all the working folders
+# THIS WILL WIPE UP BACKED UP DATA
+###################################################################################
+
+source /home/ubuntu/cluster/geode-ubuntu-package/scripts/setenv.sh
+if [ -d "$SERVER_DIR_LOCATION/$SERVER_NAME" ]; then
+	rm -fr $SERVER_DIR_LOCATION/$SERVER_NAME
+	echo "$SERVER_DIR_LOCATION/$SERVER_NAME deleted"
+fi
+if [ -d "$SERVER_DIR_LOCATION/$SERVER_NAME2" ]; then
+	rm -fr $SERVER_DIR_LOCATION/$SERVER_NAME2
+	echo "$SERVER_DIR_LOCATION/$SERVER_NAME2 deleted"
+fi
+if [ -d "$SERVER_DIR_LOCATION/$LOCATOR_NAME" ]; then
+	rm -fr $SERVER_DIR_LOCATION/$LOCATOR_NAME
+	echo "$SERVER_DIR_LOCATION/$LOCATOR_NAME deleted"
+fi
