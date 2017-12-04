@@ -1,44 +1,30 @@
 #!/bin/bash
 ##############################################################################
-# Runs locally using `gfsh` to start Geode processes (2 Locators, 2 Servers)
+# Runs locally using `gfsh` to start Geode processes (1 Locators, 2 Servers)
 ##############################################################################
-source ./environment.sh
+cd $( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+source set_env.sh
 
-if [ ! -d "$SERVER_DIR_LOCATION/$LOCATOR_1" ]; then
-	mkdir $SERVER_DIR_LOCATION/$LOCATOR_1
+echo "Starting up 1 Locator and 2 Servers locally"
+#Check if a working directory needs to be made
+if [ ! -d "$SERVER_DIR_LOCATION/$LOCATOR" ]; then
+	mkdir $SERVER_DIR_LOCATION/$LOCATOR
 fi
-if [ ! -d "$SERVER_DIR_LOCATION/$LOCATOR_2" ]; then
-	mkdir $SERVER_DIR_LOCATION/$LOCATOR_2
-fi
 
-echo "Starting Up: Locator A, Locator B and Server A, Server B, Server C and Server D"
-gfsh start locator --name=$LOCATOR_1 \
-   --enable-cluster-configuration=true  \
-  --dir=$SERVER_DIR_LOCATION/$LOCATOR_1 \
-  --port=$LOCATOR_PORT_1 \
-  --log-level=config \
-  --J=-Xms256m \
-  --J=-Xmx256m \
-  --J=-Dcom.sun.management.jmxremote \
-  --J=-Dcom.sun.management.jmxremote.port=15666 \
-  --J=-Dcom.sun.management.jmxremote.ssl=false \
-  --J=-Dcom.sun.management.jmxremote.authenticate=false \
-  --J=-Dcom.sun.management.jmxremote.local.only=false
-
-gfsh start locator \
-   --name=$LOCATOR_2 \
-   --enable-cluster-configuration=false  \
-   --dir=$SERVER_DIR_LOCATION/$LOCATOR_2 \
-   --locators=$LOCATOR_IP[$LOCATOR_PORT_1],$LOCATOR_IP[$LOCATOR_PORT_2] \
-   --port=$LOCATOR_PORT_2 \
-   --log-level=config \
-   --J=-Xms256m \
-   --J=-Xmx256m \
-   --J=-Dcom.sun.management.jmxremote \
-   --J=-Dcom.sun.management.jmxremote.port=15667 \
-   --J=-Dcom.sun.management.jmxremote.ssl=false \
-   --J=-Dcom.sun.management.jmxremote.authenticate=false \
-   --J=-Dcom.sun.management.jmxremote.local.only=false
+#Start the Locator processes
+gfsh start locator --name=$LOCATOR \
+	--enable-cluster-configuration=true  \
+	--dir=$SERVER_DIR_LOCATION/$LOCATOR \
+	--port=$LOCATOR_PORT \
+	--log-level=config \
+	--J=-Xms256m \
+	--J=-Xmx256m \
+	--J=-Dcom.sun.management.jmxremote \
+	--J=-Dcom.sun.management.jmxremote.port=15666 \
+	--J=-Dcom.sun.management.jmxremote.ssl=false \
+	--J=-Dcom.sun.management.jmxremote.authenticate=false \
+	--J=-Dcom.sun.management.jmxremote.local.only=false
+echo "Locator started"
 
 #Start Server loop
 for N in 1 2 ; do
@@ -47,7 +33,7 @@ for N in 1 2 ; do
    if [[ $N == "1" ]] ; then
       NAME="serverA"
    elif [[ $N == "2" ]] ; then
-     NAME="serverB"
+      NAME="serverB"
    fi
 
 	 #Create the working director if required
@@ -65,14 +51,13 @@ gfsh start server \
    --classpath=$CLASSPATH \
    --server-port=0 \
    --dir=$SERVER_DIR_LOCATION/$NAME \
-   --locators=$LOCATOR_IP[$LOCATOR_PORT_1],$LOCATOR_IP[$LOCATOR_PORT_2] \
+   --locators=$LOCATOR_IP[$LOCATOR_PORT] \
    --J=-Dgemfire.http-service-port=$HTTP_PORT \
    --J=-Dgemfire.start-dev-rest-api=true \
    --J=-Xms256m \
-   --J=-Xmx256m \
-   --properties-file=$CONF_DIR/gemfire.properties \
-   --spring-xml-location=file:///$CONF_DIR/fastfootshoes-spring-cache.xml
+   --J=-Xmx256m
 
+echo "Started Server $NAME"
 #Close the server start loop
 done
 
