@@ -1,6 +1,7 @@
 #!/bin/bash
 #################################################################################################
 # This scripts everything locally to run to use `gfsh` to connect to the remote cluster locator.
+# Make sure the Cluster is shut down first
 # Calls the clean up script on the remote servers
 #################################################################################################
 cd $( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
