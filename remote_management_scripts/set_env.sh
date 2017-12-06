@@ -18,8 +18,12 @@ fi
 if [ -n $JAVA_HOME ]; then
   export REMOTE_BASE_DIRECTORY=/home/ubuntu/geode/cluster
   export REMOTE_GEMFIRE_DIRECTORY=$REMOTE_BASE_DIRECTORY/geode-ubuntu-package
+  export REMOTE_LIB_DIRECTORY=$REMOTE_GEMFIRE_DIRECTORY/lib
   export REMOTE_SCRIPTS_DIRECTORY=$REMOTE_GEMFIRE_DIRECTORY/scripts
   export REMOTE_MEMBERS_DIRECTORY=$REMOTE_BASE_DIRECTORY/members
+  export REMOTE_CONFIGURATION_DIRECTORY=$REMOTE_BASE_DIRECTORY/conf
+  export LOCAL_GEODE=../geode-ubuntu-package/apache-geode
+  export PATH=$PATH:$JAVA_HOME/bin:$LOCAL_GEODE/bin
 else
   echo "This requires the Java JDK and JAVA_HOME to be set"
 	echo "Geode currently supports: http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html"

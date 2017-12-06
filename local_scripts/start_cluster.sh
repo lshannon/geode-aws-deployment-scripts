@@ -13,7 +13,7 @@ fi
 
 #Start the Locator processes
 gfsh start locator --name=$LOCATOR \
-	--enable-cluster-configuration=true  \
+	--enable-cluster-configuration=false  \
 	--dir=$SERVER_DIR_LOCATION/$LOCATOR \
 	--port=$LOCATOR_PORT \
 	--log-level=config \

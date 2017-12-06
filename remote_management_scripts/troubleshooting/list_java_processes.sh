@@ -4,14 +4,16 @@
 # Does a remote `ls` of all remote members. Useful for verifying setup
 #################################################################################################
 cd $( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
-source set_env.sh
+source ../set_env.sh
 
 # List files on the Locator
 echo "Listing Files On The Locators"
 while read IP; do
     echo "*******************"
-    echo "List Files On $IP:"
-      ssh -i $LOCAL_AWS_PEM_LOCATION ubuntu@$IP ls -R $REMOTE_BASE_DIRECTORY
+    echo "Processes On $IP:"
+    {
+      ssh -i $LOCAL_AWS_PEM_LOCATION ubuntu@$IP ps -ef | grep java
+    } < /dev/null
     echo "*******************"
 done < locators.txt
 
@@ -19,7 +21,9 @@ done < locators.txt
 echo "Listing Files On The Servers"
 while read IP; do
   echo "*******************"
-  echo "List Files On $IP:"
-    ssh -i $LOCAL_AWS_PEM_LOCATION ubuntu@$IP ls -R $REMOTE_BASE_DIRECTORY
+  echo "Processes On $IP:"
+  {
+    ssh -i $LOCAL_AWS_PEM_LOCATION ubuntu@$IP ps -ef | grep java
+  } < /dev/null
   echo "*******************"
 done < servers.txt

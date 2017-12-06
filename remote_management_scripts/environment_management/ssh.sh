@@ -3,7 +3,7 @@
 # This scripts writes out the SSH commands for all remote servers
 ###################################################################
 cd $( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
-source set_env.sh
+source ../set_env.sh
 
 echo "SSH For Locators:"
 while read IP; do
