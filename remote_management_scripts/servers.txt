@@ -1,2 +1,2 @@
-ec2-54-147-252-27.compute-1.amazonaws.com
-ec2-54-80-254-64.compute-1.amazonaws.com
+ec2-54-147-252-27.compute-1.amazonaws.com 54.147.252.27
+ec2-54-80-254-64.compute-1.amazonaws.com 54.80.254.64

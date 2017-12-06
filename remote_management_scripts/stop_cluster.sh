@@ -5,6 +5,19 @@
 cd $( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 source set_env.sh
 LOCATOR_1=$(sed -n '1p' < locators.txt)
-echo "To Shutdown the cluster run the following commands:"
+IP="$(echo $LOCATOR_1 | cut -d ' ' -f 1)"
+echo "+++++++++++++++++"
+echo "What to Shutdown?"
+echo "+++++++++++++++++"
+echo "1: Everything"
+echo "2: Data Nodes Only"
+echo "---------------"
+read option
 
-gfsh -e "connect --locator=$LOCATOR_1[10334]" -e "shutdown --include-locators"
+if [[ ("$option" -eq "1") ]]; then
+		gfsh -e "connect --locator=$IP[10334]" -e "shutdown --include-locators=true"
+fi
+
+if [[ ("$option" -eq "2") ]]; then
+		gfsh -e "connect --locator=$IP[10334]" -e "shutdown --include-locators=false"
+fi

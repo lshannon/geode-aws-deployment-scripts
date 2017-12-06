@@ -15,7 +15,7 @@
 	</disk-store>
 
 	<region name="Chats">
-    		<region-attributes refid="PARTITION_PERSISTENT" disk-store-name="ds1" concurrency-level="2">
+    		<region-attributes refid="PARTITION" concurrency-level="2">
        	</region-attributes>
 	</region>
 

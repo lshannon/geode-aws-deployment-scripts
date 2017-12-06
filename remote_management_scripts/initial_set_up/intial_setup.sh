@@ -16,6 +16,7 @@ echo "Setting Up The Locators"
 while read IP; do
     echo "Setting Up Locator: $IP"
     {
+      IP="$(echo $IP | cut -d ' ' -f 1)"
       ssh -i $LOCAL_AWS_PEM_LOCATION ubuntu@$IP mkdir -p $REMOTE_BASE_DIRECTORY
       ssh -i $LOCAL_AWS_PEM_LOCATION ubuntu@$IP mkdir -p $REMOTE_MEMBERS_DIRECTORY
       ssh -i $LOCAL_AWS_PEM_LOCATION ubuntu@$IP mkdir -p $REMOTE_CONFIGURATION_DIRECTORY
@@ -30,6 +31,7 @@ echo "Setting Up The Servers"
 while read IP; do
     echo "Setting Up Server: $IP"
     {
+      IP="$(echo $IP | cut -d ' ' -f 1)"
       ssh -i $LOCAL_AWS_PEM_LOCATION ubuntu@$IP mkdir -p $REMOTE_BASE_DIRECTORY
       ssh -i $LOCAL_AWS_PEM_LOCATION ubuntu@$IP mkdir -p $REMOTE_MEMBERS_DIRECTORY
       ssh -i $LOCAL_AWS_PEM_LOCATION ubuntu@$IP mkdir -p $REMOTE_CONFIGURATION_DIRECTORY

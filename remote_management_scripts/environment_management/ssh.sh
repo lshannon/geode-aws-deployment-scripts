@@ -7,10 +7,12 @@ source ../set_env.sh
 
 echo "SSH For Locators:"
 while read IP; do
+    IP="$(echo $IP | cut -d ' ' -f 1)"
     echo "ssh -i $LOCAL_AWS_PEM_LOCATION ubuntu@$IP"
 done < locators.txt
 
 echo "SSH For Servers:"
 while read IP; do
+    IP="$(echo $IP | cut -d ' ' -f 1)"
     echo "ssh -i $LOCAL_AWS_PEM_LOCATION ubuntu@$IP"
 done < servers.txt

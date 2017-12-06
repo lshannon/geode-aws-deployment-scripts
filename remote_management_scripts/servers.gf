@@ -1,0 +1,1 @@
+start server --name=ip-172-31-20-233-server --server-port=0 --use-cluster-configuration=false --locators=172.31.31.44[10334],172.31.29.29[10334],172.31.23.99[10334] --properties-file=/home/ubuntu/geode/cluster/conf/geode.properties --rebalance=true --J=-Xms4g --J=-Xmx4g --J=-XX:+PrintFlagsFinal --cache-xml-file=/home/ubuntu/geode/cluster/conf/cache.xml
