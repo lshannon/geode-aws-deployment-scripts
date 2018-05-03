@@ -88,6 +88,25 @@ Protocol: TCP  Port: 22
 
 ```
 
+Also the /etc/host file for each member of the cluster should be updated to contain entries for all other members. The format should look like this.
+
+```shell
+
+<Private IP> <Public DNS> <Host Name>
+
+```
+
+For example, this clusters has four members. Each would have the following in their /etc/host
+
+```shell
+
+172.11.11.11 ec2-54-111-111-111.compute-1.amazonaws.com ec2-54-111-111-111
+172.11.11.12 ec2-54-111-111-112.compute-1.amazonaws.com ec2-54-111-111-112
+172.11.11.13 ec2-54-111-111-113.compute-1.amazonaws.com ec2-54-111-111-113
+172.11.11.13 ec2-54-111-111-114.compute-1.amazonaws.com ec2-54-111-111-114
+
+```
+
 
 ## Requirements
 
